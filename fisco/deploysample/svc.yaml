@@ -1,0 +1,31 @@
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: $podName
+  name: $podName
+  namespace: $networkName
+spec:
+  clusterIP: $clusterip
+  type: NodePort
+  ports:
+  - name: rpc
+    port: 8545
+    targetPort: 8545
+    nodePort: $rpc
+  - name: channel
+    port: 20200
+    targetPort: 20200
+    nodePort: $channel
+  - name: p2p
+    port: 30300
+    targetPort: 30300
+  - name: front
+    port: 5002
+    targetPort: 5002
+    nodePort: $front
+  selector:
+    io.kompose.service: $podName
